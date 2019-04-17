@@ -28,6 +28,18 @@ assert_eq!(true, "foobar".ends_with_caseless_ascii("BaR"));
 assert_eq!(true, "123 Maße".ends_with_caseless("MASSE"));
 ```
 
+## No Std
+
+This crate can work without std, but the `starts_with_caseless` method and the `ends_with_caseless` method will be disabled at this stage.
+
+Enable the feature **no_std** to compile this crate without std.
+
+```toml
+[dependencies.starts_ends_with_caseless]
+version = "*"
+features = ["no_std"]
+```
+
 ## Crates.io
 
 https://crates.io/crates/starts-ends-with-caseless
