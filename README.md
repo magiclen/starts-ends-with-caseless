@@ -2,6 +2,7 @@ Starts/Ends With Caseless
 ====================
 
 [![Build Status](https://travis-ci.org/magiclen/starts-ends-with-caseless.svg?branch=master)](https://travis-ci.org/magiclen/starts-ends-with-caseless)
+[![Build status](https://ci.appveyor.com/api/projects/status/0yh87l4emfadyc23/branch/master?svg=true)](https://ci.appveyor.com/project/magiclen/starts-ends-with-caseless/branch/master)
 
 This crate provides the `StartsWithCaseless` trait and the `EndsWithCaseless` trait to extend types which implement `AsRef<str>` in order to do `starts_with` and `ends_with` case-insensitively.
 
