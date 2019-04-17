@@ -35,7 +35,7 @@ This crate can work without std, but the `starts_with_caseless` method and the `
 Enable the feature **no_std** to compile this crate without std.
 
 ```toml
-[dependencies.starts_ends_with_caseless]
+[dependencies.starts-ends-with-caseless]
 version = "*"
 features = ["no_std"]
 ```
