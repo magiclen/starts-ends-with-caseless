@@ -30,7 +30,7 @@ assert_eq!(true, "123 Maße".ends_with_caseless("MASSE"));
 
 ## Multiple Prefixes or Suffixes
 
-This crates also provides the `StartsWithCaselessMultiple` trait and the `EndsWithCaselessMultiple` trait to do `starts_with_caseless` and `ends_with_caseless` with multiple prefixes or suffixes.
+This crate also provides the `StartsWithCaselessMultiple` trait and the `EndsWithCaselessMultiple` trait to do `starts_with_caseless` and `ends_with_caseless` with multiple prefixes or suffixes.
 
 ### Example
 
