@@ -12,8 +12,13 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
         let a = self.as_ref();
         let b = s.as_ref();
 
-        let a_len = a.len();
         let b_len = b.len();
+
+        if b_len == 0 {
+            return true;
+        }
+
+        let a_len = a.len();
 
         if a_len < b_len {
             false
@@ -46,6 +51,10 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
         let a = self.as_ref();
         let b = s.as_ref();
 
+        if b.is_empty() {
+            return true;
+        }
+
         {
             let au = a.to_uppercase();
             let bu = b.to_uppercase();
@@ -60,15 +69,10 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
                 let pass = loop {
                     match bucs.next() {
                         Some(buc) => {
-                            match aucs.next() {
-                                Some(auc) => {
-                                    if auc != buc {
-                                        break false;
-                                    }
-                                }
-                                None => {
-                                    break false;
-                                }
+                            let auc =  aucs.next().unwrap();
+
+                            if auc != buc {
+                                break false;
                             }
                         }
                         None => {
@@ -99,15 +103,10 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
             loop {
                 match blcs.next() {
                     Some(blc) => {
-                        match alcs.next() {
-                            Some(alc) => {
-                                if alc != blc {
-                                    return false;
-                                }
-                            }
-                            None => {
-                                return false;
-                            }
+                        let alc = alcs.next().unwrap();
+
+                        if alc != blc {
+                            return false;
                         }
                     }
                     None => {
