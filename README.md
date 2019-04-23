@@ -37,9 +37,9 @@ This crate also provides the `StartsWithCaselessMultiple` trait and the `EndsWit
 ```rust
 extern crate starts_ends_with_caseless;
 
-use starts_ends_with_caseless::StartsWithCaselessMultiple;
+use starts_ends_with_caseless::EndsWithCaselessMultiple;
 
-assert_eq!(true, "foobar".starts_with_caseless_ascii_multiple(&["foo", "bar"]));
+assert_eq!(Some(1), "photo.jpg".ends_with_caseless_ascii_multiple(&[".png", ".jpg", ".gif"]));
 ```
 
 ## No Std

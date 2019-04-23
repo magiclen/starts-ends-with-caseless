@@ -1,19 +1,19 @@
 /// To extend types which implement `AsRef<str>` to have `starts_with_caseless_ascii_multiple` and `starts_with_caseless_multiple` methods.
 pub trait EndsWithCaselessMultiple {
-    /// Returns `true` if the given string slices case-insensitively (only ignoring ASCII case) matches a suffix of this string slice .
-    fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> bool;
+    /// Returns `Some(usize)` if the given string slices case-insensitively (only ignoring ASCII case) matches a suffix of this string slice .
+    fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> Option<usize>;
 
-    /// Returns `true` if the given string slices case-insensitively (using case-folding) matches a suffix of this string slice .
-    fn ends_with_caseless_multiple<S: AsRef<str>>(&self, s: S) -> bool;
+    /// Returns `Some(usize)` if the given string slices case-insensitively (using case-folding) matches a suffix of this string slice .
+    fn ends_with_caseless_multiple<S: AsRef<str>>(&self, s: S) -> Option<usize>;
 }
 
 impl<T: AsRef<str>> EndsWithCaselessMultiple for T {
     #[allow(unused_must_use)]
-    fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> bool {
+    fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> Option<usize> {
         let s_len = s.len();
 
         if s_len == 0 {
-            return true;
+            return None;
         }
 
         let a = self.as_ref();
@@ -22,58 +22,68 @@ impl<T: AsRef<str>> EndsWithCaselessMultiple for T {
 
         let mut bs = Vec::with_capacity(s_len);
 
-        for s in s {
+        for (i, s) in s.iter().enumerate() {
             let s = s.as_ref();
 
             let s_len = s.len();
 
             if s_len == 0 {
-                return true;
+                return Some(i);
             } else if s_len <= a_len {
-                bs.push(s);
+                bs.push((i, s.as_bytes()));
             }
         }
 
-        let mut bcss: Vec<_> = bs.iter().map(|&b| b.chars().rev()).collect();
+        let mut bcss: Vec<_> = bs.iter().rev().map(|&b| (b.0, b.1.iter().rev())).collect();
 
-        let mut acs = a.chars().rev();
+        let mut acs = a.as_bytes().iter().rev();
 
         loop {
             let bcss_len = bcss.len();
 
             match acs.next() {
                 Some(ac) => {
-                    let acu = ac.to_ascii_uppercase();
+                    let acl = ac.to_ascii_lowercase();
 
                     if bcss_len == 0 {
-                        return false;
+                        return None;
                     }
 
                     for i in (0..bcss_len).rev() {
                         let bcs = &mut bcss[i];
 
-                        match bcs.next() {
+                        match bcs.1.next() {
                             Some(bc) => {
-                                let bcu = bc.to_ascii_uppercase();
+                                let bcl = bc.to_ascii_lowercase();
 
-                                if acu != bcu {
+                                if acl != bcl {
                                     bcss.remove(i);
                                 }
                             }
                             None => {
-                                return true;
+                                return Some(bcs.0);
                             }
                         }
                     }
                 }
                 None => {
-                    break bcss_len != 0;
+                    break if bcss_len == 0 {
+                        None
+                    } else {
+                        for mut bcs in bcss.into_iter().rev() {
+                            if let None = bcs.1.next() {
+                                return Some(bcs.0);
+                            }
+                        }
+
+                        unreachable!()
+                    };
                 }
             }
         }
     }
 
-    fn ends_with_caseless_multiple<S: AsRef<str>>(&self, _s: S) -> bool {
+    fn ends_with_caseless_multiple<S: AsRef<str>>(&self, _s: S) -> Option<usize> {
         // TODO: Implement this after `ends_with_caseless` can be done without `to_uppercase` or `to_lowercase` methods.
         unimplemented!()
     }

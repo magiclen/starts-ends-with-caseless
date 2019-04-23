@@ -25,24 +25,7 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
         } else {
             let a = &a[..b_len];
 
-            let mut acs = a.chars();
-            let mut bcs = b.chars();
-
-            loop {
-                match bcs.next() {
-                    Some(bc) => {
-                        let bcu = bc.to_ascii_uppercase();
-                        let acu = acs.next().unwrap().to_ascii_uppercase();
-
-                        if acu != bcu {
-                            break false;
-                        }
-                    }
-                    None => {
-                        break true;
-                    }
-                }
-            }
+            a.eq_ignore_ascii_case(b)
         }
     }
 
@@ -63,8 +46,8 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
             let bu_len = bu.len();
 
             if au_len >= bu_len {
-                let mut aucs = au.chars();
-                let mut bucs = bu.chars();
+                let mut aucs = au.as_bytes().iter();
+                let mut bucs = bu.as_bytes().iter();
 
                 let pass = loop {
                     match bucs.next() {
@@ -97,8 +80,8 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
         if al_len < bl_len {
             false
         } else {
-            let mut alcs = al.chars();
-            let mut blcs = bl.chars();
+            let mut alcs = al.as_bytes().iter();
+            let mut blcs = bl.as_bytes().iter();
 
             loop {
                 match blcs.next() {
