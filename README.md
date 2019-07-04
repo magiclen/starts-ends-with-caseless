@@ -44,7 +44,7 @@ assert_eq!(Some(1), "photo.jpg".ends_with_caseless_ascii_multiple(&[".png", ".jp
 
 ## No Std
 
-This crate can work without std, but the `starts_with_caseless` method and the `ends_with_caseless` method will be disabled at this stage as well as the `StartsWithCaselessMultiple` trait and the `EndsWithCaselessMultiple` trait.
+This crate can work without std, but the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
 
 Enable the feature **no_std** to compile this crate without std.
 

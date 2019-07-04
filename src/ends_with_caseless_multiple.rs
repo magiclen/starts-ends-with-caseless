@@ -1,8 +1,14 @@
+#[cfg(feature = "no_std")]
+extern crate alloc;
+
+#[cfg(feature = "no_std")]
+use alloc::vec::Vec;
+
 /// To extend types which implement `AsRef<str>` to have `starts_with_caseless_ascii_multiple` and `starts_with_caseless_multiple` methods.
 pub trait EndsWithCaselessMultiple {
     /// Returns `Some(usize)` if the given string slices case-insensitively (only ignoring ASCII case) matches a suffix of this string slice .
     fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> Option<usize>;
-
+    #[cfg(not(feature = "no_std"))]
     /// Returns `Some(usize)` if the given string slices case-insensitively (using case-folding) matches a suffix of this string slice .
     fn ends_with_caseless_multiple<S: AsRef<str>>(&self, s: S) -> Option<usize>;
 }
@@ -83,6 +89,7 @@ impl<T: AsRef<str>> EndsWithCaselessMultiple for T {
         }
     }
 
+    #[cfg(not(feature = "no_std"))]
     fn ends_with_caseless_multiple<S: AsRef<str>>(&self, _s: S) -> Option<usize> {
         // TODO: Implement this after `ends_with_caseless` can be done without `to_uppercase` or `to_lowercase` methods.
         unimplemented!()

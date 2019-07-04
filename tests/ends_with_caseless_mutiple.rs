@@ -1,5 +1,3 @@
-#![cfg(not(feature = "no_std"))]
-
 extern crate starts_ends_with_caseless;
 
 use starts_ends_with_caseless::EndsWithCaselessMultiple;
@@ -11,6 +9,7 @@ fn ends_with_caseless_ascii_multiple() {
     assert_eq!(None, "foobar".ends_with_caseless_ascii_multiple(&["foo", "ba"]));
 }
 
+#[cfg(not(feature = "no_std"))]
 #[test]
 fn ends_with_caseless_multiple() {
     // TODO
