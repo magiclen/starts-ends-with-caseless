@@ -54,12 +54,12 @@ features = ["no_std"]
 
 #![cfg_attr(feature = "no_std", no_std)]
 
-mod starts_with_caseless;
 mod ends_with_caseless;
-mod starts_with_caseless_multiple;
 mod ends_with_caseless_multiple;
+mod starts_with_caseless;
+mod starts_with_caseless_multiple;
 
-pub use starts_with_caseless::StartsWithCaseless;
 pub use ends_with_caseless::EndsWithCaseless;
-pub use starts_with_caseless_multiple::StartsWithCaselessMultiple;
 pub use ends_with_caseless_multiple::EndsWithCaselessMultiple;
+pub use starts_with_caseless::StartsWithCaseless;
+pub use starts_with_caseless_multiple::StartsWithCaselessMultiple;

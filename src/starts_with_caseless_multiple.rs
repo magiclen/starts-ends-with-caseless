@@ -76,7 +76,7 @@ impl<T: AsRef<str>> StartsWithCaselessMultiple for T {
                         None
                     } else {
                         for mut bcs in bcss.into_iter().rev() {
-                            if let None = bcs.1.next() {
+                            if bcs.1.next().is_none() {
                                 return Some(bcs.0);
                             }
                         }

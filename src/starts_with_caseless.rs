@@ -52,7 +52,7 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
                 let pass = loop {
                     match bucs.next() {
                         Some(buc) => {
-                            let auc =  aucs.next().unwrap();
+                            let auc = aucs.next().unwrap();
 
                             if auc != buc {
                                 break false;
@@ -70,7 +70,6 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
             }
         }
 
-
         let al = a.to_lowercase();
         let bl = b.to_lowercase();
 
@@ -81,20 +80,13 @@ impl<T: AsRef<str>> StartsWithCaseless for T {
             false
         } else {
             let mut alcs = al.as_bytes().iter();
-            let mut blcs = bl.as_bytes().iter();
+            let blcs = bl.as_bytes().iter();
 
-            loop {
-                match blcs.next() {
-                    Some(blc) => {
-                        let alc = alcs.next().unwrap();
+            for blc in blcs {
+                let alc = alcs.next().unwrap();
 
-                        if alc != blc {
-                            return false;
-                        }
-                    }
-                    None => {
-                        break;
-                    }
+                if alc != blc {
+                    return false;
                 }
             }
 
