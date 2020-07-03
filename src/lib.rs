@@ -48,7 +48,7 @@ assert_eq!(Some(1), "photo.jpg".ends_with_caseless_ascii_multiple(&[".png", ".jp
 Disable the default features to compile this crate without std. But the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
 
 ```toml
-[dependencies.html-minifier]
+[dependencies.starts-ends-with-caseless]
 version = "*"
 default-features = false
 ```
