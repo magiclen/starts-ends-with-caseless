@@ -1,3 +1,9 @@
+#[cfg(feature = "std")]
+extern crate cow_utils;
+
+#[cfg(feature = "std")]
+use cow_utils::CowUtils;
+
 /// To extend types which implement `AsRef<str>` to have `ends_with_caseless_ascii` and `ends_with_caseless` methods.
 pub trait EndsWithCaseless {
     /// Returns `true` if the given string slice case-insensitively (only ignoring ASCII case) matches a suffix of this string slice .
@@ -12,20 +18,18 @@ impl<T: AsRef<str>> EndsWithCaseless for T {
         let a = self.as_ref();
         let b = s.as_ref();
 
-        let b_len = b.len();
+        let b_length = b.len();
 
-        if b_len == 0 {
+        if b_length == 0 {
             return true;
         }
 
-        let a_len = a.len();
+        let a_length = a.len();
 
-        if a_len < b_len {
-            false
+        if a_length >= b_length {
+            a[(a_length - b_length)..].eq_ignore_ascii_case(b)
         } else {
-            let a = &a[(a_len - b_len)..];
-
-            a.eq_ignore_ascii_case(b)
+            false
         }
     }
 
@@ -39,58 +43,28 @@ impl<T: AsRef<str>> EndsWithCaseless for T {
         }
 
         {
-            let au = a.to_uppercase();
-            let bu = b.to_uppercase();
+            let au = a.cow_to_uppercase();
+            let bu = b.cow_to_uppercase();
 
-            let au_len = au.len();
-            let bu_len = bu.len();
+            let au_length = au.len();
+            let bu_length = bu.len();
 
-            if au_len >= bu_len {
-                let mut aucs = au.as_bytes().iter().rev();
-                let mut bucs = bu.as_bytes().iter().rev();
-
-                let pass = loop {
-                    match bucs.next() {
-                        Some(buc) => {
-                            let auc = aucs.next().unwrap();
-
-                            if auc != buc {
-                                break false;
-                            }
-                        }
-                        None => {
-                            break true;
-                        }
-                    }
-                };
-
-                if pass {
-                    return true;
-                }
+            if au_length >= bu_length && &au.as_bytes()[(au_length - bu_length)..] == bu.as_bytes()
+            {
+                return true;
             }
         }
 
-        let al = a.to_lowercase();
-        let bl = b.to_lowercase();
+        let al = a.cow_to_lowercase();
+        let bl = b.cow_to_lowercase();
 
-        let al_len = al.len();
-        let bl_len = bl.len();
+        let al_length = al.len();
+        let bl_length = bl.len();
 
-        if al_len < bl_len {
-            false
+        if al_length >= bl_length {
+            &al.as_bytes()[(al_length - bl_length)..] == bl.as_bytes()
         } else {
-            let mut alcs = al.as_bytes().iter().rev();
-            let blcs = bl.as_bytes().iter().rev();
-
-            for blc in blcs {
-                let alc = alcs.next().unwrap();
-
-                if alc != blc {
-                    return false;
-                }
-            }
-
-            true
+            false
         }
     }
 }

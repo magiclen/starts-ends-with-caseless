@@ -14,31 +14,29 @@ pub trait EndsWithCaselessMultiple {
 impl<T: AsRef<str>> EndsWithCaselessMultiple for T {
     #[allow(unused_must_use)]
     fn ends_with_caseless_ascii_multiple<S: AsRef<str>>(&self, s: &[S]) -> Option<usize> {
-        let s_len = s.len();
+        let s_length = s.len();
 
-        if s_len == 0 {
+        if s_length == 0 {
             return None;
         }
 
         let a = self.as_ref();
 
-        let a_len = a.len();
+        let a_length = a.len();
 
-        let mut bs = Vec::with_capacity(s_len);
+        let mut bcss = Vec::with_capacity(s_length);
 
-        for (i, s) in s.iter().enumerate() {
+        for (i, s) in s.iter().enumerate().rev() {
             let s = s.as_ref();
 
-            let s_len = s.len();
+            let s_length = s.len();
 
-            if s_len == 0 {
+            if s_length == 0 {
                 return Some(i);
-            } else if s_len <= a_len {
-                bs.push((i, s.as_bytes()));
+            } else if s_length <= a_length {
+                bcss.push((i, s.as_bytes().iter().rev()));
             }
         }
-
-        let mut bcss: Vec<_> = bs.iter().rev().map(|&b| (b.0, b.1.iter().rev())).collect();
 
         let mut acs = a.as_bytes().iter().rev();
 

@@ -17,8 +17,8 @@ repository = "magiclen/starts-ends-with-caseless"
 branch = "master"
 
 [dependencies]
-
+cow-utils = {version = "0.1", optional = true }
 
 [features]
 default = ["std"]
-std = []
+std = ["cow-utils"]
