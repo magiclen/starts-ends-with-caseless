@@ -1,6 +1,6 @@
 [package]
 name = "starts-ends-with-caseless"
-version = "0.5.4"
+version = "0.6.0"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/starts-ends-with-caseless"
@@ -18,5 +18,7 @@ branch = "master"
 
 [dependencies]
 
+
 [features]
-no_std = []
+default = ["std"]
+std = []

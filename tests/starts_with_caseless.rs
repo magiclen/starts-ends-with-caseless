@@ -12,7 +12,7 @@ fn starts_with_caseless_ascii() {
     assert_eq!(false, "foobar".starts_with_caseless_ascii(" foobar"));
 }
 
-#[cfg(not(feature = "no_std"))]
+#[cfg(feature = "std")]
 #[test]
 fn starts_with_caseless() {
     assert_eq!(true, "Maße 123".starts_with_caseless("Maße"));

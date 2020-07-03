@@ -2,7 +2,7 @@
 pub trait EndsWithCaseless {
     /// Returns `true` if the given string slice case-insensitively (only ignoring ASCII case) matches a suffix of this string slice .
     fn ends_with_caseless_ascii<S: AsRef<str>>(&self, s: S) -> bool;
-    #[cfg(not(feature = "no_std"))]
+    #[cfg(feature = "std")]
     /// Returns `true` if the given string slice case-insensitively (using case-folding) matches a suffix of this string slice .
     fn ends_with_caseless<S: AsRef<str>>(&self, s: S) -> bool;
 }
@@ -29,7 +29,7 @@ impl<T: AsRef<str>> EndsWithCaseless for T {
         }
     }
 
-    #[cfg(not(feature = "no_std"))]
+    #[cfg(feature = "std")]
     fn ends_with_caseless<S: AsRef<str>>(&self, s: S) -> bool {
         let a = self.as_ref();
         let b = s.as_ref();

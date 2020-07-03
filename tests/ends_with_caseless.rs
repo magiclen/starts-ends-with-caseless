@@ -12,7 +12,7 @@ fn ends_with_caseless_ascii() {
     assert_eq!(false, "foobar".ends_with_caseless_ascii(" foobar"));
 }
 
-#[cfg(not(feature = "no_std"))]
+#[cfg(feature = "std")]
 #[test]
 fn ends_with_caseless() {
     assert_eq!(true, "123 Maße".ends_with_caseless("Maße"));

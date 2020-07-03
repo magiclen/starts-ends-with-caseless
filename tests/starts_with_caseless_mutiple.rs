@@ -9,7 +9,7 @@ fn starts_with_caseless_ascii_multiple() {
     //    assert_eq!(None, "foobar".starts_with_caseless_ascii_multiple(&["bar", "oo"]));
 }
 
-#[cfg(not(feature = "no_std"))]
+#[cfg(feature = "std")]
 #[test]
 fn starts_with_caseless_multiple() {
     // TODO

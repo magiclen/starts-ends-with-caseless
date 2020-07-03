@@ -5,24 +5,28 @@ This crate provides the `StartsWithCaseless` trait and the `EndsWithCaseless` tr
 
 ## Examples
 
-```rust,ignore
+```rust
 extern crate starts_ends_with_caseless;
 
 use starts_ends_with_caseless::StartsWithCaseless;
 
 assert_eq!(true, "foobar".starts_with_caseless_ascii("FoO"));
 
+# #[cfg(feature = "std")] {
 assert_eq!(true, "Maße 123".starts_with_caseless("MASSE"));
+# }
 ```
 
-```rust,ignore
+```rust
 extern crate starts_ends_with_caseless;
 
 use starts_ends_with_caseless::EndsWithCaseless;
 
 assert_eq!(true, "foobar".ends_with_caseless_ascii("BaR"));
 
+# #[cfg(feature = "std")] {
 assert_eq!(true, "123 Maße".ends_with_caseless("MASSE"));
+# }
 ```
 
 ## Multiple Prefixes or Suffixes
@@ -31,7 +35,7 @@ This crate also provides the `StartsWithCaselessMultiple` trait and the `EndsWit
 
 ### Example
 
-```rust,ignore
+```rust
 extern crate starts_ends_with_caseless;
 
 use starts_ends_with_caseless::EndsWithCaselessMultiple;
@@ -41,18 +45,16 @@ assert_eq!(Some(1), "photo.jpg".ends_with_caseless_ascii_multiple(&[".png", ".jp
 
 ## No Std
 
-This crate can work without std, but the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
-
-Enable the feature **no_std** to compile this crate without std.
+Disable the default features to compile this crate without std. But the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
 
 ```toml
-[dependencies.starts-ends-with-caseless]
+[dependencies.html-minifier]
 version = "*"
-features = ["no_std"]
+default-features = false
 ```
 */
 
-#![cfg_attr(feature = "no_std", no_std)]
+#![cfg_attr(not(feature = "std"), no_std)]
 
 mod ends_with_caseless;
 mod ends_with_caseless_multiple;
