@@ -43,14 +43,12 @@ assert_eq!(Some(1), "photo.jpg".ends_with_caseless_ascii_multiple(&[".png", ".jp
 
 ## No Std
 
-This crate can work without std, but the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
-
-Enable the feature **no_std** to compile this crate without std.
+Disable the default features to compile this crate without std. But the `starts_with_caseless`, `ends_with_caseless`, `starts_with_caseless_multiple` and `ends_with_caseless_multiple` methods will be disabled at this stage as well.
 
 ```toml
-[dependencies.starts-ends-with-caseless]
+[dependencies.html-minifier]
 version = "*"
-features = ["no_std"]
+default-features = false
 ```
 
 ## Crates.io
