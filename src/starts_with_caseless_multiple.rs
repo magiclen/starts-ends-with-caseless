@@ -33,11 +33,11 @@ impl<T: AsRef<str>> StartsWithCaselessMultiple for T {
             if s_length == 0 {
                 return Some(i);
             } else if s_length <= a_length {
-                bcss.push((i, s.as_bytes().iter()));
+                bcss.push((i, s.bytes()));
             }
         }
 
-        let mut acs = a.as_bytes().iter();
+        let mut acs = a.bytes();
 
         loop {
             let bcss_length = bcss.len();
