@@ -1,10 +1,10 @@
 [package]
 name = "starts-ends-with-caseless"
-version = "0.6.3"
+version = "0.6.4"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/starts-ends-with-caseless"
-homepage = "https://magiclen.org/starts-ends-with-caseless"
+homepage = "https://magiclen.org/str-utils"
 keywords = ["case-folding", "case-insensitive", "caseless", "starts_with", "ends_with"]
 categories = ["no-std", "algorithms"]
 description= "This crate provides the `StartsWithCaseless` trait and the `EndsWithCaseless` trait to extend types which implement `AsRef<str>` in order to do `starts_with` and `ends_with` case-insensitively."
